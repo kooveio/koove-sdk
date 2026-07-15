@@ -1,0 +1,76 @@
+{
+  "name": "@koove/sdk",
+  "version": "0.2.0",
+  "description": "Koove mobile SDK — zero-knowledge secret access for React Native / Expo, gated by hardware attestation (App Attest / Play Integrity) and biometrics",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kooveio/koove-sdk.git"
+  },
+  "homepage": "https://koove.io",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/**/*",
+    "android/build.gradle",
+    "android/src/**/*",
+    "ios/**/*",
+    "app.plugin.js"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc --noEmit",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "secrets",
+    "zero-knowledge",
+    "encryption",
+    "attestation",
+    "app-attest",
+    "play-integrity",
+    "security"
+  ],
+  "author": "Gustavo Jiménez <soygus@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@expo/config-plugins": ">=5.0.0",
+    "expo": ">=47.0.0",
+    "react": ">=18.0.0",
+    "react-native": ">=0.70.0"
+  },
+  "devDependencies": {
+    "@expo/config-plugins": "^5.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.70.0",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^29.0.0",
+    "prettier": "^2.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.28.4",
+    "@koove/crypto": "^0.1.0",
+    "@noble/ciphers": "^2.2.0",
+    "@noble/curves": "^2.2.0",
+    "@noble/hashes": "^2.2.0",
+    "axios": "^1.8.4",
+    "expo-crypto": "^56.0.4",
+    "expo-device": "~7.0.0",
+    "expo-local-authentication": "~15.0.2",
+    "expo-secure-store": "~14.0.1"
+  },
+  "expo": {
+    "plugins": [
+      "./app.plugin.js"
+    ]
+  }
+}

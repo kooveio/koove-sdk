@@ -1,0 +1,7 @@
+src/
+lib/
+*.ts
+*.tsx
+*.map
+tsconfig.json
+.vscode/
