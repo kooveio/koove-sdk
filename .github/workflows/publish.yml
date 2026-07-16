@@ -1,0 +1,33 @@
+name: Publish to npm (OIDC trusted publishing)
+
+# Publishes this package on a GitHub Release. No npm token: npm trusts this
+# exact repo+workflow via OIDC (Trusted Publishing) and attaches a provenance
+# attestation. Configure the trusted publisher once at
+# npmjs.com -> package -> Settings -> Trusted Publisher
+# (repo kooveio/koove-sdk, workflow publish.yml).
+#
+# Release flow: bump version in package.json -> commit -> draft a GitHub
+# Release tagged vX.Y.Z -> Publish. The prepare script builds lib/ before
+# publish.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # REQUIRED: lets npm verify this workflow via OIDC
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm install -g npm@latest
+      - run: npm ci
+      - run: npm publish --provenance --access public
