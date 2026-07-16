@@ -1,7 +1,7 @@
 {
   "name": "@koove/sdk",
-  "version": "0.2.0",
-  "description": "Koove mobile SDK — zero-knowledge secret access for React Native / Expo, gated by hardware attestation (App Attest / Play Integrity) and biometrics",
+  "version": "0.2.1",
+  "description": "Koove mobile SDK \u2014 zero-knowledge secret access for React Native / Expo, gated by hardware attestation (App Attest / Play Integrity) and biometrics",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kooveio/koove-sdk.git"
@@ -32,7 +32,7 @@
     "play-integrity",
     "security"
   ],
-  "author": "Gustavo Jiménez <soygus@gmail.com>",
+  "author": "Gustavo Jim\u00e9nez <soygus@gmail.com>",
   "license": "MIT",
   "publishConfig": {
     "access": "public"

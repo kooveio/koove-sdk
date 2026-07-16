@@ -8,11 +8,13 @@ were wrapped for that device — gated behind biometric / device-passcode
 authentication. Private keys never leave the device; the server never sees
 plaintext.
 
-> **Status:** the native attestation modules (iOS `DCAppAttestService`, Android
-> Play Integrity) are code-complete but their live end-to-end run on physical
-> hardware is still pending. Until that run is documented, treat attestation as
-> beta. We don't claim things we haven't verified — see *Security model* for
-> exactly what is and isn't guaranteed.
+> **Status:** iOS App Attest is **verified end-to-end on a physical device**
+> (iPhone 13 mini, 2026-07-14: real attestation, server-side chain
+> verification against Apple's pinned root, biometric-gated decryption — no
+> dev bypass). Android Play Integrity is code-complete and unit-tested; its
+> live hardware run is still pending, so treat the Android path as beta. We
+> don't claim things we haven't verified — see *Security model* for exactly
+> what is and isn't guaranteed.
 
 ## Features
 
