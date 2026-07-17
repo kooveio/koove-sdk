@@ -15,6 +15,8 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
+    // Required for RN autolinking to detect this library (no AndroidManifest).
+    namespace "com.expovpnsdk"
     compileSdkVersion safeExtGet('compileSdkVersion', 33)
 
     defaultConfig {

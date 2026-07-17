@@ -11,10 +11,10 @@ plaintext.
 > **Status:** iOS App Attest is **verified end-to-end on a physical device**
 > (iPhone 13 mini, 2026-07-14: real attestation, server-side chain
 > verification against Apple's pinned root, biometric-gated decryption — no
-> dev bypass). Android Play Integrity is code-complete and unit-tested; its
-> live hardware run is still pending, so treat the Android path as beta. We
-> don't claim things we haven't verified — see *Security model* for exactly
-> what is and isn't guaranteed.
+> dev bypass). Android Play Integrity is verified on physical hardware too
+> (Pixel 6a, 2026-07-17: real MEETS_DEVICE_INTEGRITY verdict, biometric-gated
+> decryption, no dev bypass). We don't claim things we haven't verified —
+> see *Security model* for exactly what is and isn't guaranteed.
 
 ## Features
 

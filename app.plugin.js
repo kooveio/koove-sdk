@@ -194,6 +194,32 @@ ${pinsXml}
   return config;
 };
 
+/**
+ * Android: número de proyecto GCP para Play Integrity. Obligatorio para
+ * builds NO instalados desde Play (dev por cable); las apps de Play no lo
+ * necesitan. Se escribe con prefijo "cpn-" porque aapt desbordaría un
+ * android:value numérico de 12 dígitos a int. Configurable vía props:
+ * ["vpn-sdk", { "androidCloudProjectNumber": "141483215037" }].
+ */
+const withAndroidCloudProjectNumber = (config, props) => {
+  const cpn = props && props.androidCloudProjectNumber;
+  if (!cpn) return config;
+  return withAndroidManifest(config, (config) => {
+    const application = config.modResults.manifest.application?.[0];
+    if (!application) return config;
+    application['meta-data'] = (application['meta-data'] || []).filter(
+      (m) => m.$['android:name'] !== 'com.koove.sdk.cloudProjectNumber'
+    );
+    application['meta-data'].push({
+      $: {
+        'android:name': 'com.koove.sdk.cloudProjectNumber',
+        'android:value': `cpn-${cpn}`,
+      },
+    });
+    return config;
+  });
+};
+
 // Plugin principal — superficie attestation-only (el VPN nativo se purgó;
 // STRATEGY: la superficie VPN/ZTNA está diferida).
 const withKooveSdk = (config, props) => {
@@ -201,6 +227,7 @@ const withKooveSdk = (config, props) => {
   config = withNativeModuleFiles(config);
   config = withXcodeProjectMod(config);
   config = withAppAttestEntitlement(config, props);
+  config = withAndroidCloudProjectNumber(config, props);
 
   // Pinning on por defecto; desactivable para desarrollo contra localhost
   // (["vpn-sdk", { "disablePinning": true }]).

@@ -53,6 +53,30 @@ public class ExpoVpnSdkAttestationModule extends ReactContextBaseJavaModule {
         }
     }
 
+    /**
+     * Optional GCP project number from manifest meta-data. Required by Play
+     * Integrity for apps NOT installed from Play (dev builds by cable); apps
+     * from Play work without it. Stored with a "cpn-" prefix because aapt
+     * would overflow a bare 12-digit android:value into an int.
+     */
+    private Long getCloudProjectNumber() {
+        try {
+            android.content.pm.ApplicationInfo ai = getReactApplicationContext()
+                .getPackageManager()
+                .getApplicationInfo(
+                    getReactApplicationContext().getPackageName(),
+                    android.content.pm.PackageManager.GET_META_DATA);
+            if (ai.metaData == null) return null;
+            Object v = ai.metaData.get("com.koove.sdk.cloudProjectNumber");
+            if (v == null) return null;
+            String s = String.valueOf(v).trim();
+            if (s.startsWith("cpn-")) s = s.substring(4);
+            return Long.parseLong(s);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     @ReactMethod
     public void attest(String clientDataHashB64, Promise promise) {
         byte[] binding;
@@ -69,9 +93,14 @@ public class ExpoVpnSdkAttestationModule extends ReactContextBaseJavaModule {
         try {
             IntegrityManager manager =
                 IntegrityManagerFactory.create(getReactApplicationContext());
+            IntegrityTokenRequest.Builder reqBuilder =
+                IntegrityTokenRequest.builder().setNonce(nonce);
+            Long cloudProjectNumber = getCloudProjectNumber();
+            if (cloudProjectNumber != null) {
+                reqBuilder.setCloudProjectNumber(cloudProjectNumber);
+            }
             manager
-                .requestIntegrityToken(
-                    IntegrityTokenRequest.builder().setNonce(nonce).build())
+                .requestIntegrityToken(reqBuilder.build())
                 .addOnSuccessListener(response -> {
                     WritableMap out = Arguments.createMap();
                     out.putString("integrityToken", response.token());
