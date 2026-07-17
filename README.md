@@ -161,9 +161,9 @@ auditable envelope-encryption package.
 
 - Requires a Development Build; not compatible with Expo Go.
 - Web is not a supported secret consumer in v1.
-- Live attestation runs: iOS pending a physical-device validation session;
-  Android pending Play Console setup. The dev-bypass path (simulator +
-  non-production server) is fully functional for development.
+- Live attestation is verified on physical hardware on both platforms
+  (iPhone 13 mini 2026-07-14, Pixel 6a 2026-07-17). The dev-bypass path
+  (simulator + non-production server) remains available for development.
 
 ## License
 
