@@ -1,6 +1,6 @@
 {
   "name": "@koove/sdk",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Koove mobile SDK — zero-knowledge secret access for React Native / Expo, gated by hardware attestation (App Attest / Play Integrity) and biometrics",
   "repository": {
     "type": "git",
